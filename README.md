@@ -14,6 +14,7 @@ You can edit loopSeeds.sh to fit your machine and wants by modifying the number 
 
 Example: So if the machine i'm running this from has 6 cores, I would change the THREADCOUNT to 12.
 
+You can stop the process by doing ctrl+c and then running `./stop.sh` which will kill the processes running and remove the output.txt files from the folder.
 
 # FSG - Filtered Seed Glitchless (Shipwreck Mode)
 v 1.2.1 Stronghold ocean-biome now deep_ocean
