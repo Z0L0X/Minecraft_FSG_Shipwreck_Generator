@@ -1,6 +1,39 @@
-# FSG - Filtered Seed Glitchless
+# How To Use
 
-In v 0.5 blind travel filters were added and one nether structure removed.  Bastion in pos/pos, fortress either pos/neg or neg/pos and stronghold within 300 blocks of either 1200,-1200 or -1200,1200 (matching the fortress).
+write `./loopSeeds.sh` from root directory of the project and this will generate a seeds.txt file
+
+```
+for i in $(seq 1 1 NUMBEROFSEEDSTOGENERATE); do
+  for j in $(seq 1 1 THREADCOUNT); do
+    ./seed >output$j.txt &
+  done
+done
+```
+
+You can edit loopSeeds.sh to fit your machine and wants by modifying the number corresponding to capital letters respectively. It's recommended that the number of threads should be twice the amount of cores you're using. 
+
+Example: So if the machine i'm running this from has 6 cores, I would change the THREADCOUNT to 12.
+
+
+# FSG - Filtered Seed Glitchless (Shipwreck Mode)
+v 1.2.1 Stronghold ocean-biome now deep_ocean
+
+v 1.2 Ocean-Biome Stronghold (for the blind travel stronghold) and added RUINED PORTAL LOOT quality filters (typically 3 iron and a flint and steel but would accept other things like 7 iron or loot 3 swords or 6 obi)
+
+v 1.1 No snowy_tundra villages, fixed ruined_portal oversight causing some to be buried in shipwreck seeds, inverted portal position and village position
+
+MAJOR CHANGES: v 1.0 changed the verification token to be the only thing needed to validate your seed.  This means streamers don't need to show the code running and tournaments can be FSG and each runner's time can be counted to the leaderboards.  Just run your seed within 30 seconds of generating it here.  Also made major speed improvements, filter for non-ocean ruined portals even in shipwreck seeds.  The code has been refactored to be easier to understand for those looking to learn from it. You can use the spawn specific links below which are also upgraded.
+
+This version of FSG doesn't go through millions of seeds just thousands. Y'all are creative at overworlds and entering the nether.  This filter only specifies two things: a great nether (close pos/pos bastion and close fortress in neg/pos or pos/neg) and great blind travel (300 blocks from 150/-150 or -150/150 if you leave from the fortress).  This might be the best way to practice rather than lean on my janky overworlds, do what you always do, but I'll handle the nether RNG.  Enjoy.
+
+In v 0.6. the shipwreck spawns now have at least one magma ravine somewhere in the (-100,-100) to (200,200) square.  Ravines are somewhat tricky in the way minecraft handles them, so they aren't always blatantly obvious but in practice it should give you a nether entry in most cases.  The code will decide shipwreck or village with 50/50 probability.  If you want a specific start every time I have 3 specific FSG filters out there:
+  1) https://repl.it/@AndyNovo/filteredvillage for only village spawns
+  2) https://repl.it/@AndyNovo/filteredshipwreck for only shipwreck spawns
+  3) https://repl.it/@AndyNovo/filteredseed-jungle for jungle temple spawns 
+
+All 3 still get a ruined portal, nether stuff, and good blind travel of course.
+
+In v 0.5 blind travel filters were added and one nether structure removed.  Bastion in pos/pos, fortress either pos/neg or neg/pos and stronghold within 300 blocks of either 1200,-1200 or -1200,1200 (matching the fortress).  Don't expect fantastic overworlds, blacksmiths are hard, loot tables are hard. 
 
 In v 0.4.2 a memory leak was fixed so the code should run faster and crash less
 
@@ -33,4 +66,8 @@ If you're interested in helping this category grow you can help in several ways:
   If you're a seed finder help improve the algorithm, attributes, and the balance between unpredictable and of sufficient quality.
   Help us specify the standards for the category to be serious enough.
 
-Special thanks to all of the Monkeys!
+This project was made with love by the University of Delaware Cybersecurity Scholars.
+
+Special thanks to lots of people in this great speedrunning community, from mods and verifiers, to runners streaming and giving feedback, to tourney hosts promoting the category, to the coders and geeks helping me get my code right, to the hypermodernists giving insights into shaving minutes, to the new runners giving me encouragement because it helps them!
+
+gcc csprng.c -I./include -L./libs -lgcrypt -lgpg-error -L. -lcubiomes -lm -lpthread -Wl,-rpath=./libs/ -lminecraft_nether_gen_rs -o seed
